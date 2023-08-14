@@ -1,7 +1,7 @@
 // LE Peripheral Example - not working yet
 #include <BTstackLib.h>
 #include <SPI.h>
-#include <ledShow.cpp>
+
 
 /*
    EXAMPLE_START(LEPeripheral): LE Peripheral
@@ -36,7 +36,7 @@ void setup(void) {
 
   // setup GATT Database
   BTstack.addGATTService(new UUID("B8E06067-62AD-41BA-9231-206AE80AB551"));
-  BTstack.addGATTCharacteristic(new UUID("f897177b-aee8-4767-8ecc-cc694fd5fcef"), ATT_PROPERTY_READ, "This is a String!");
+  BTstack.addGATTCharacteristic(new UUID("df083a1b-61f4-4a78-bbda-c51d6c17e876"), ATT_PROPERTY_READ, "This is a String!");
   BTstack.addGATTCharacteristicDynamic(new UUID("f897177b-aee8-4767-8ecc-cc694fd5fce0"), ATT_PROPERTY_READ | ATT_PROPERTY_WRITE | ATT_PROPERTY_NOTIFY, 0);
 
   // startup Bluetooth and activate advertisements
@@ -118,7 +118,7 @@ int gattWriteCallback(uint16_t value_handle, uint8_t *buffer, uint16_t size) {
   characteristic_data = buffer[0];
   Serial.print("gattWriteCallback , value ");
   Serial.println(characteristic_data, HEX);
-  if (characteristic_data == 1){
+  if (characteristic_data == 2){
     digitalWrite(LED_BUILTIN, HIGH);
   } else{
     digitalWrite(LED_BUILTIN, LOW);
@@ -126,4 +126,3 @@ int gattWriteCallback(uint16_t value_handle, uint8_t *buffer, uint16_t size) {
   return 0;
 }
 /* LISTING_END(LEPeripheralWriteCallback): Write Callback */
-
